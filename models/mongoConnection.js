@@ -6,7 +6,8 @@ var	port = process.env['MONGO_NODE_DRIVER_PORT'] != null ? process.env['MONGO_NO
 
 var mongo_uri = (function(){
 	if(process.env.MONGOHQ_URL){
-		return "mongodb://heroku:bornin1984@staff.mongohq.com:10003/app2869781"
+		//mongodb://<user>:<password>@staff.mongohq.com:10050/app3126337
+		return process.env.MONGOHQ_URL;//"mongodb://heroku:bornin1984@staff.mongohq.com:10003/app2869781"
 	} else {
 		return "mongodb://"+host+":"+port+"/cdr";
 	}
