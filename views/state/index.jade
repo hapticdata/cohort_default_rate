@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+	h1= title
+
+	ul#states
+		each state, i in data
+			li
+				a(href="/state/#{i}/") #{state}
