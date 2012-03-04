@@ -6,4 +6,6 @@ block content
 	ul#states
 		each state, i in data
 			li
-				a(href="/state/#{i}/") #{state}
+				a(href="/state/#{i}/") #{state.ST_DESC}
+				-var rate = state.DRATE_1.toFixed(2);
+				#{rate}%

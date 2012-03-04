@@ -22,10 +22,9 @@ exports.open = function(callback){
 			console.log("DB Connection error");
 			console.log(err);
 		} else {
-			var str = "Connected to Mongo @ "+self.uri;
-			sys.puts(str)
+			var str = "Connected to Mongo @ "+mongo_uri;
 			console.log(str);
+			callback(err,db);
 		}
-		callback(err,db);
 	});
 };

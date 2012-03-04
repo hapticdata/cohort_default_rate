@@ -15,7 +15,8 @@ var app = module.exports = express.createServer();
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
-  app.set('view options', {layout: false, pretty: true, debug: true});
+  app.set('view options', {layout: false, pretty: true, debug: false});
+  app.use(express.compiler({ src: __dirname+'/public', enable: ['less']}));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
@@ -34,13 +35,31 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 app.get('/state', function(req,res, next){
-  cdrModel.getStates(function(err,data){
-      res.render('state/index',{title: "Student Default Rates all states", data: data});
+  cdrModel.getStates(function(err,states){
+    cdrModel.getStateAverages(function(err,averages){
+      for(var key in averages){
+        averages[key].ST_DESC = states[key];
+      }
+      res.render('state/index',{title: "Student Default Rates all states", data: averages});
+    });
+  });
+});
+app.get('/state/json', function(req,res,next){
+  cdrModel.getStateAverages(function(err, data){
+      res.send(data);
+  });
+});
+app.get('/zip/json', function(req,res,next){
+  console.log("PAGE REQUEST");
+  cdrModel.getZipAverages(function(err,data){
+    console.log("request");
+    res.send(data);
   });
 });
 app.get('/state/:code', function(req,res,next){
   var stateCode = req.params.code;
   cdrModel.getState(stateCode, function(err,data){
+    console.log("get state: "+stateCode);
     res.render('state/single',{title: "Student Default Rates for "+ data[0].ST_DESC, data: data});
   });
 });

@@ -5,12 +5,18 @@ var	port = process.env['MONGO_NODE_DRIVER_PORT'] != null ? process.env['MONGO_NO
 
 var db = new mongodb.Db('cdr', new mongodb.Server(host, port, {}));
 
+exports.db = db;
 
-
-exports.init = function(callback){
+exports.openSheet1 = function(callback){
 	db.open(function(err,db){
 		db.collection('sheet1', function(err,collection){
 			callback(err,collection);
 		});
+	});
+};
+
+exports.openZipAverages = function(callback){
+	db.open(function(err,db){
+		db.collection('zip_averages', callback);
 	});
 };
