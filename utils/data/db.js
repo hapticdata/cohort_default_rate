@@ -9,7 +9,7 @@ exports.db = db;
 
 exports.openSheet1 = function(callback){
 	db.open(function(err,db){
-		db.collection('sheet1', function(err,collection){
+		db.collection('main', function(err,collection){
 			callback(err,collection);
 		});
 	});

@@ -1,6 +1,45 @@
 var	mongo = require('./mongoConnection'),
 	Cursor = require('mongodb').Cursor;
 
+
+
+var fields = {
+	OPE_ID: 	'OPE ID',
+	NAME: 		'Institution Name',
+	ADDR: 		'Street Address',
+	CITY: 		'City',
+	ST_CD: 		'State Abbreviation',
+	ST_DESC: 	'State Name',
+	ZIP: 		'Zip Code',
+	ZIP_EXT: 	'Zip Code Extension',
+	Country: 	'Country Name of foreign schools',
+	PGM_LEN: 	'Program Length (Bachelor, Master, Associate, etc.)',
+	SCH_TYPE: 	'School Type (Public, Private, Proprietary, Foreign, etc.)',
+	YR_1: 		'Cohort Year 2009',
+	NBD_1: 		'Number of Borrowers in Default for 2009',
+	NBR_1: 		'Number of Borrowers in Repay for 2009',
+	DRATE_1: 	'Official Default Rate for 2009',
+	AVG_1: 		'Average Rate Indicator for 2009',
+	PRATE_1: 	'Rate Program Type for 2009',
+	YR_2: 		'Cohort Year 2008',
+	NBD_2: 		'Number of Borrowers in Default for 2008',
+	NBR_2: 		'Number of Borrowers in Repay for 2008',
+	DRATE_2: 	'Official Default Rate for 2008',
+	AVG_2: 		'Average Rate Indicator for 2008',
+	PRATE_2: 	'Rate Program Type for 2008',
+	YR_3: 		'Cohort Year 2007',
+	NBD_3: 		'Number of Borrowers in Default for 2007',
+	NBR_3: 		'Number of Borrowers in Repay for 2007',
+	DRATE_3: 	'Official Default Rate for 2007',
+	AVG_3: 		'Average Rate Indicator for 2007',
+	PRATE_3: 	'Rate Program Type for 2007',
+	Eth_Cert: 	'Ethnic Code or No Longer in FFEL Program (Code "C", "H", "T", or blank)[C=No Longer in FFEL Program; H=HBCU; T=TCCC]',
+	PROGRAM: 	'F=FFEL Participation; D=Direct Loan Program Participation; B=Participation in both Programs',
+	CON_DIST: 	'Congressional District',
+	REGION: 	'Region',
+	AVGOR_GE30: 'Borrow Group Indicator (If 2009 rate is average and < 3 yrs data then 0 else 1)'
+};
+
 var states = {
 	AL: "Alabama", 
 	AK: "Alaska", 
@@ -58,10 +97,19 @@ var states = {
 
 mongo.open(function(err,db){
 	console.log("open");
-	db.collection('sheet1',function(err,collection){
+	db.collection('main',function(err,collection){
+		exports.getNHighestDefaults = function(n, callback){
+			collection.find({}).sort({NBD_1: -1}).limit(n).toArray(callback);
+		};
+		exports.getNHighestPercent = function(n, callback){
+			collection.find({NBD_1: {$gt: 0}}).sort({DRATE_1: -1}).limit(n).toArray(callback);
+		};
+		exports.getNLowestDefaults = function(n, callback){
+			collection.find({}).sort({NBD_1: 1}).limit(n).toArray(callback);
+		}
 		exports.getState = function(st, callback){
 			st = st.toUpperCase();
-			collection.find({ST_CD: st}).sort({DRATE_1: -1}).toArray(callback);
+			collection.find({ST_CD: st}).sort({NAME: 1}).toArray(callback);
 		};
 	});
 

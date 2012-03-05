@@ -33,7 +33,13 @@ app.configure('production', function(){
 
 // Routes
 
-app.get('/', routes.index);
+app.get('/', function(req,res,next){
+  cdrModel.getNHighestDefaults(50, function(err, worst){
+    cdrModel.getNHighestPercent(50, function(err, worstPercent){
+        res.render('index', {title: "Which School's Students are Failing to Pay their Student Loans?", worst: worst, worstPercent: worstPercent});
+    });
+  })
+});
 app.get('/state', function(req,res, next){
   cdrModel.getStates(function(err,states){
     cdrModel.getStateAverages(function(err,averages){

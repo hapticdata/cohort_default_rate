@@ -1,7 +1,44 @@
 extends ./layout
 
 block content
-	h1= title
-	p Welcome to #{title}
-	div#chart
-	script(src="/javascripts/overview/country.js")
+	section
+		header.jumbotron.subhead
+			h1= title
+		div#chart
+		script(src="/javascripts/visualizations/home.js")
+		p.lead.
+			Welcome to the <a href="http://www2.ed.gov/offices/OSFAP/defaultmanagement/cdr.html">Cohort Default Rates</a> visualization. The cohort default rate is the percentage of borrowers 
+			who enter repayment in a fiscal year and default by the end of the next fiscal year. 
+			This site is intended to raise awareness about which schools are leaving their students unable to pay their loans
+			and which institutions are creating successful futures for their student body.
+			The nations average default rates for 2009 were 8.54%, 2008 was 6.31% and 2007 was 5.22%
+
+		div.page-header
+			h1 Schools with Highest Number of Borrowers in Default for 2009
+		ol
+			each school, i in worst
+				li #{school.NAME}, in 
+					a(href="/state/#{school.ST_CD}") #{school.ST_DESC}
+					| , had 
+					strong
+						#{school.NBD_1} 
+					em (#{school.DRATE_1}%) 
+					|  students defaulted
+
+		div.page-header
+			h1 Schools with Highest % of Borrowers in Default for 2009
+		ol
+			each school, i in worstPercent
+				li #{school.NAME}, in 
+					a(href="/state/#{school.ST_CD}/") #{school.ST_DESC}
+					| , had 
+					strong
+						#{school.DRATE_1}%,
+					em (#{school.NBD_1})
+					|  students defaulted
+		//div.page-header
+		//	h1 Schools with the Lowest Number of Borrowers in Default for 2009
+		//	ol
+		//		each school, i in best
+		//			li #{school.NAME}, #{school.NBD_1} students defaulted
+	//script(src="/javascripts/overview/country.js")

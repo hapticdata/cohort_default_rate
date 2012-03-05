@@ -2,9 +2,10 @@ extends ../layout
 
 
 block content
-	h1= data[0].ST_DESC
-	h2= title
-	h3 #{data.length} schools
+	section
+		header.jumbotron.subhead
+			h1= data[0].ST_DESC
+			p.lead #{data.length} schools
 
-	div#chart
-	script(src='/javascripts/state/single.js')
+		div#chart
+		script(src='/javascripts/state/single.js')

@@ -1,11 +1,16 @@
 extends ../layout
 
 block content
-	h1= title
+	section
+		header.jumbotron.subhead
+			h1= title
+			p.lead.
+				Ranked from lowest percent defaulting to highest, click a state to view its schools individually. 
+				Notice there are some special exceptions, such as <a href="/state/zz/">International</a> schools, and territories such as 
+				<a href="/state/AS/">American Samoa</a>, <a href="/state/PW/">Palau</a>, and <a href="/state/gu">Guam</a>.
 
 	ol#states
 		each state, i in data
 			li
-				a(href="/state/#{i}/") #{state.ST_DESC}
 				-var rate = state.DRATE_1.toFixed(2);
-				#{rate}%
+				a(href="/state/#{i}/") #{state.ST_DESC} #{rate}%
