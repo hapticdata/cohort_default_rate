@@ -59,3 +59,18 @@ svg.selectAll('rect')
 	.attr('height', function(d){
 		return d.value * unit;
 	});
+
+svg.selectAll('text')
+	.data(data)
+	.enter()
+	.append('text')
+	.attr('class','label')
+	.text(function(d){
+		return d.year;
+	})
+	.attr('x', function(d,i){
+		return i * (barWidth + 1) + 3;
+	})
+	.attr('y', function(d){
+		return height - 2;
+	});
