@@ -20,6 +20,9 @@ section {
 .bars .bounds {
   fill: #e1e1e1;
 }
+.bars .label {
+  fill: white;
+}
 .bullet {
   font: 10px sans-serif;
 }
