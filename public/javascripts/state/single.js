@@ -47,16 +47,29 @@ d3.json(jsonFile, function(data){
 				.data(data)
 				.enter()
 				.append('rect')
-					.attr('class','bar')
-					.attr('y', getY)
-					.attr('x', function(d){
-							return label;
-					})
-					.attr('height',24)
-					.transition().duration(1000)
-						.attr('width', function(d){
-							return d.DRATE_1 * unit;
-						});
+				.attr('class','bar')
+				.attr('y', getY)
+				.attr('x', function(d){
+						return label;
+				})
+				.attr('height',24)
+				.transition().duration(1000)
+					.attr('width', function(d){
+						return d.DRATE_1 * unit;
+					});
+		
+			svg.selectAll('text.percent')
+				.data(data)
+				.enter()
+				.append('text')
+				.text(function(d){
+					return d.DRATE_1 + '%';
+				})
+				.attr('x', label + 5)
+				.attr('y', function(d,i){
+					return getY(d,i) + 17;
+				});
+
 				
 			/*svg.selectAll('rect.bar2')
 				.data(data)
