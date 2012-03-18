@@ -1,11 +1,25 @@
 extends ../layout
 
 
+
 block content
+	- var abc = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	- var letters = '000000000000000000000000000000000000';
+	each school, i in data
+		- var letter = school.NAME.charAt(0);
+		- var index = abc.indexOf(letter.toUpperCase());
+		- letters = letters.slice(0,index) + "1" + letters.slice(index+1);
 	section
 		header.jumbotron.subhead
 			h1= data[0].ST_DESC
 			p.lead #{data.length} schools
+			
+			nav.pagination
+				ul
+					each letter, i in letters
+						if letter == "1"
+							li
+								a(href="##{abc[i]}") #{abc[i]}
 
 		div#chart
 		script(src='/javascripts/state/single.js')
