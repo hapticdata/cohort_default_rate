@@ -40,6 +40,11 @@ app.get('/', function(req,res,next){
     });
   })
 });
+app.get('/all/json', function(req,res,next){
+  cdrModel.getAll(function(err,schools){
+      res.send(schools);
+  });
+});
 app.get('/state', function(req,res, next){
   cdrModel.getStates(function(err,states){
     cdrModel.getStateAverages(function(err,averages){

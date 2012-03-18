@@ -98,6 +98,20 @@ var states = {
 mongo.open(function(err,db){
 	console.log("open");
 	db.collection('main',function(err,collection){
+		exports.getAll = function(callback){
+			collection.find({}).toArray(function(err,schools){
+				var props = ['NAME', 'DRATE_1','NBD_1', 'SCH_TYPE'];
+				var data = [];
+				schools.forEach(function(school){
+					var d = {};
+					props.forEach(function(prop,i){
+						d[prop] = school[prop];
+					});
+					data.push(d);
+				});
+				callback(err,data);
+			});
+		};
 		exports.getNHighestDefaults = function(n, callback){
 			collection.find({}).sort({NBD_1: -1}).limit(n).toArray(callback);
 		};
@@ -132,7 +146,7 @@ mongo.open(function(err,db){
 	db.collection('state_averages', function(err, collection){
 		exports.getStateAverages = function(cb){
 			var callbackSent = false;
-			collection.find({}).sort({"value.DRATE_1": 1}, function(err,cursor){
+			collection.find({}).sort({"value.DRATE_1": -1}, function(err,cursor){
 				var obj = {};
 				cursor.each(function(err, item){
 					if(item != null){

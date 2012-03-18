@@ -4,14 +4,24 @@ block content
 	section
 		header.jumbotron.subhead
 			h1= title
+		div.container
+			div.row
+				div.span6
+					p.lead
+					| This site is intended to communicate and visualize which schools are leaving their students unable to pay their loans
+					| and which institutions are creating successful futures for their student body.
+					| The nation's average default rates for 2009 are up to <em>8.8%</em>, an increase from <em>7.0%</em> in 2008.
+					| While the latest figures are low in comparison to when this study began, 2009 is the highest default rate amongst students since 1997.
+
+				div.span6
+					p.lead
+					<blockquote>The <a href="http://www2.ed.gov/offices/OSFAP/defaultmanagement/cdr.html">Cohort Default Rate</a> is the percentage of borrowers 
+					| who enter repayment in a fiscal year and default by the end of the next fiscal year.</blockquote> 
+					
+
 		div#chart
 		script(src="/javascripts/visualizations/home.js")
-		p.lead.
-			Welcome to the <a href="http://www2.ed.gov/offices/OSFAP/defaultmanagement/cdr.html">Cohort Default Rates</a> visualization. The cohort default rate is the percentage of borrowers 
-			who enter repayment in a fiscal year and default by the end of the next fiscal year. 
-			This site is intended to raise awareness about which schools are leaving their students unable to pay their loans
-			and which institutions are creating successful futures for their student body.
-			The nations average default rates for 2009 were 8.54%, 2008 was 6.31% and 2007 was 5.22%
+		
 
 		div.page-header
 			h1 Schools with Highest Number of Borrowers in Default for 2009
