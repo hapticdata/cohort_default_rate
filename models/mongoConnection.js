@@ -7,7 +7,7 @@ var	port = process.env['MONGO_NODE_DRIVER_PORT'] != null ? process.env['MONGO_NO
 var mongo_uri = (function(){
 	if(process.env.MONGOHQ_URL){
 		
-		return 'mongodb://kyle:bornin1984@staff.mongohq.com:10050/app3126337'//process.env.MONGOHQ_URL;
+		return 'mongodb://cdr_admin:phoenixITTKaplan@staff.mongohq.com:10050/app3126337'//process.env.MONGOHQ_URL;
 	} else {
 		return "mongodb://"+host+":"+port+"/cdr";
 	}
